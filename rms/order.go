@@ -1114,6 +1114,85 @@ type SearchOrderResponse struct {
 	PaginationResponseModel `json:"PaginationResponseModel"`
 }
 
+type UpdateOrderShippingReqBody struct {
+	OrderNumber       string          `json:"orderNumber"`
+	BasketidModelList []BasketIdModel `json:"BasketidModelList"`
+}
+
+type BasketIdModel struct {
+	BasketId int `json:"basketId"`
+	// Maximum number of shipping models that can be registered is 20.
+	ShippingModelList []ShippingModel `json:"ShippingModelList"`
+}
+
+type ShippingModel struct {
+	// ・Add shipping information when not specified.
+	//・Update or delete shipping information when specified.
+	ShippingDetailId int `json:"shippingDetailId"`
+	// 	Any of the following values.
+
+	// 1000: Other
+	// 1001: Yamato Transport Co., Ltd.
+	// 1002: Sagawa Express Co.,Ltd.
+	// 1003: Japan Post Co., Ltd.
+	// 1004: Seino Transportation Co., Ltd.
+	// 1005: Seino Super Express Co., Ltd.
+	// 1006: Fukuyama Transporting Co.,Ltd.
+	// 1007: Meitetsu Transportation Co., Ltd.
+	// 1008: Tonami Transportation Co., Ltd.
+	// 1009: Daiichi Freight System, Inc
+	// 1010: Niigata Unyu Co., Ltd.
+	// 1011: Chuetsu Transport Co.,Ltd.
+	// 1012: Okayamaken Freight Transportation Co., Ltd.
+	// 1013: KURUME-TRANS Co.,Ltd.
+	// 1014: Sanyo Jidosha Unso Co.,Ltd.
+	// 1015: NX TRANSPORT
+	// 1016: Ecohai Co., Ltd.
+	// 1017: EMS
+	// 1018: DHL
+	// 1019: FedEx
+	// 1020: UPS (United States Postal Service)
+	// 1021: Nippon Express Co., Ltd.
+	// 1022: TNT
+	// 1023: OCS
+	// 1024: USPS
+	// 1025: SF Express Co., Ltd.
+	// 1026: Aramex
+	// 1027: SGH Global Japan
+	// 1028: Rakuten EXPRESS
+	// *Note: In case parameter is not set: value won’t change.
+	// *Note: In case parameter is set: value is mandatory.
+	DeliveryCompany string `json:"deliveryCompany"`
+	// 	Input validations
+
+	// ・Invalid characters such as machine-dependent characters are not allowed.
+	// ・Up to 120 characters regardless of double-byte or single-byte.
+	// *Note: In case parameter is not set: value won’t change.
+	// *Note: In case parameter is set and value is not specified: the existing value will be deleted.
+	ShippingNumber string `json:"shippingNumber"`
+	// 	YYYY-MM-DD
+	// *Note: In case parameter is not set: value won’t change.
+	// *Note: In case parameter is set and value is not specified: the existing value will be deleted.
+	ShippingDate string `json:"shippingDate"`
+	// 	Any of the following values.
+
+	// 0: Do not delete shipping information
+	// 1: Delete shipping information
+	ShippingDeleteFlag int `json:"shippingDeleteFlag"`
+}
+
+type UpdateOrderShippingRespBody struct {
+	MessageModelList []MessageModelList `json:"MessageModelList"`
+}
+
+type MessageModelList struct {
+	MessageType      string `json:"messageType"` // INFO, ERROR
+	MessageCode      string `json:"messageCode"`
+	Message          string `json:"message"`
+	DataNumber       int    `json:"dataNumber"`
+	ShippingDetailId int    `json:"shippingDetailId"`
+}
+
 type SearchOrderConfig struct {
 	Auth     *types.AuthParameter
 	ReqBody  *SearchOrderRequestBody
@@ -1149,6 +1228,30 @@ type GetOrdersConfig struct {
 
 func GetOrdersReq(ctx context.Context, cfg GetOrdersConfig) error {
 	uri := config.EndPoint + config.GetOrderPath
+	client := InitClient(&cfg.ClientConfig)
+	_, err := client.R().
+		SetContext(ctx).
+		SetHeader("Content-Type", "application/json; charset=utf-8").
+		SetHeader("Authorization", cfg.Auth.GenToken()).
+		SetBody(cfg.ReqBody).
+		SetSuccessResult(cfg.RespBody).
+		SetErrorResult(cfg.RespBody).
+		Post(uri)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type UpdateOrderShippingConfig struct {
+	Auth     *types.AuthParameter
+	ReqBody  *UpdateOrderShippingReqBody
+	RespBody *UpdateOrderShippingRespBody
+	ClientConfig
+}
+
+func UpdateOrderShippingReq(ctx context.Context, cfg UpdateOrderShippingConfig) error {
+	uri := config.EndPoint + config.UpdateOrderShippingPath
 	client := InitClient(&cfg.ClientConfig)
 	_, err := client.R().
 		SetContext(ctx).
