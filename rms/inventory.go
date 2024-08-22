@@ -2,8 +2,8 @@ package rms
 
 import (
 	"context"
-	"rakuten-spi-sdk/config"
-	"rakuten-spi-sdk/types"
+	"github.com/oh0123/rakuten-spi-sdk/config"
+	"github.com/oh0123/rakuten-spi-sdk/types"
 )
 
 // reqbody

@@ -1,4 +1,4 @@
-module rakuten-spi-sdk
+module github.com/oh0123/rakuten-spi-sdk
 
 go 1.22.5
 

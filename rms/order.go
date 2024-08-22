@@ -2,8 +2,9 @@ package rms
 
 import (
 	"context"
-	"rakuten-spi-sdk/config"
-	"rakuten-spi-sdk/types"
+
+	"github.com/oh0123/rakuten-spi-sdk/config"
+	"github.com/oh0123/rakuten-spi-sdk/types"
 )
 
 // GetOrderRequest は楽天ペイ受注APIの注文情報取得時の検索条件です。

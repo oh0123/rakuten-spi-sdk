@@ -3,7 +3,7 @@ package types
 import (
 	"database/sql/driver"
 	"errors"
-	"rakuten-spi-sdk/config"
+	"github.com/oh0123/rakuten-spi-sdk/config"
 	"time"
 
 	"github.com/bytedance/sonic"

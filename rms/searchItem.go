@@ -2,9 +2,9 @@ package rms
 
 import (
 	"context"
-	"rakuten-spi-sdk/config"
-	"rakuten-spi-sdk/pkg"
-	"rakuten-spi-sdk/types"
+	"github.com/oh0123/rakuten-spi-sdk/config"
+	"github.com/oh0123/rakuten-spi-sdk/pkg"
+	"github.com/oh0123/rakuten-spi-sdk/types"
 )
 
 // paramters
