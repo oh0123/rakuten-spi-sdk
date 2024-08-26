@@ -1129,7 +1129,7 @@ type BasketIdModel struct {
 type ShippingModel struct {
 	// ・Add shipping information when not specified.
 	//・Update or delete shipping information when specified.
-	ShippingDetailId int64 `json:"shippingDetailId"`
+	ShippingDetailId *int64 `json:"shippingDetailId"`
 	// 	Any of the following values.
 
 	// 1000: Other
@@ -1190,8 +1190,8 @@ type MessageModelList struct {
 	MessageType      string `json:"messageType"` // INFO, ERROR
 	MessageCode      string `json:"messageCode"`
 	Message          string `json:"message"`
-	DataNumber       int64  `json:"dataNumber"`
-	ShippingDetailId int64  `json:"shippingDetailId"`
+	DataNumber       *int64 `json:"dataNumber"`
+	ShippingDetailId *int64 `json:"shippingDetailId"`
 }
 
 type SearchOrderConfig struct {
