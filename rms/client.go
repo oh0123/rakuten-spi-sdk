@@ -1,8 +1,9 @@
 package rms
 
 import (
-	"github.com/oh0123/rakuten-spi-sdk/config"
 	"time"
+
+	"github.com/oh0123/rakuten-spi-sdk/config"
 
 	"github.com/bytedance/sonic"
 	"github.com/imroc/req/v3"

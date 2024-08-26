@@ -14,7 +14,7 @@ const (
 	GetOrderPath            = "/es/2.0/order/getOrder/"
 	SearchItemPath          = "/es/2.0/items/search"
 	BulkGetInventoryPath    = "/es/2.1/inventories/bulk-get"
-	UpdateOrderShippingPath = "/order/updateOrderShipping/"
+	UpdateOrderShippingPath = "/es/2.0/order/updateOrderShipping/"
 )
 
 var (
